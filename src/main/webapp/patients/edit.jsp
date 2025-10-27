@@ -52,6 +52,16 @@
               <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Thuốc</span>
             </a>
           </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Phòng Khám</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Hồ Sơ Khám Bệnh</span>
+            </a>
+          </li>
         </ul>
         <hr>
         <div class="dropdown pb-4">

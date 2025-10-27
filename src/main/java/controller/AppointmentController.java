@@ -40,14 +40,23 @@ public class AppointmentController extends HttpServlet {
             case "edit":
                 showFormEdit(req, resp);
                 break;
-//            case "delete":
-//                showFormDelete(req, resp);
-//                break;
-//            default:
-//                showNotFoundErr(req, resp);
-//                break;
+            case "delete":
+                showFormDelete(req, resp);
+                break;
+            default:
+                showNotFoundErr(req, resp);
+                break;
         }
     }
+
+    private void showFormDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("appointments/delete.jsp");
+        int idDelete = Integer.parseInt(req.getParameter("idDelete"));
+        Appointment appointmentDelete = this.appointmentService.findById(idDelete);
+        req.setAttribute("appointmentDelete", appointmentDelete);
+        dispatcher.forward(req, resp);
+    }
+
 
     private void showFormEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("appointments/edit.jsp");
@@ -75,6 +84,11 @@ public class AppointmentController extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    private void showNotFoundErr(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("errors/notFound.jsp");
+        dispatcher.forward(req, resp);
+    }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -89,14 +103,21 @@ public class AppointmentController extends HttpServlet {
             case "edit":
                 edit(req, resp);
                 break;
-//            case "delete":
-//                showFormDelete(req, resp);
-//                break;
-//            default:
-//                showNotFoundErr(req, resp);
-//                break;
+            case "delete":
+                delete(req, resp);
+                break;
+            default:
+                showNotFoundErr(req, resp);
+                break;
         }
 
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int id_appointment = Integer.parseInt(req.getParameter("id_appointment"));
+        System.out.println("delete function" + id_appointment);
+        this.appointmentService.delete(id_appointment);
+        resp.sendRedirect("/appointments?action=home");
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,4 +1,18 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: vuquo
+  Date: 10/25/2025
+  Time: 11:19 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+  <title>Title</title>
+</head>
+<body>
+
+</body><%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -78,32 +92,28 @@
       </div>
     </div>
     <div class="col py-3">
-      <h3>Quản Lý Bệnh Nhân</h3>
-      <button type="button" class="btn btn-primary"><a href="/patients?action=add">Thêm Bệnh Nhân</a></button>
+      <h3>Quản Lý Phòng Khám</h3>
+      <button type="button" class="btn btn-primary"><a href="/rooms?action=add">Thêm Phòng Khám</a></button>
       <table class="table">
         <thead>
         <tr>
-          <th>Mã Bệnh Nhân</th>
-          <th>Tên</th>
-          <th>Ngày Sinh</th>
-          <th>Giới Tính</th>
-          <th>Số Điện Thoại</th>
-          <th>Địa Chỉ</th>
+          <th>Mã Phòng Khám</th>
+          <th>Tên Phòng</th>
+          <th>Khoa</th>
+          <th>Thiết Bị</th>
           <th>Thao Tác</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="item" items="${patients}">
+        <c:forEach var="item" items="${rooms}">
           <tr>
-            <th scope="row">${item.id_patient}</th>
-            <td>${item.name}</td>
-            <td>${item.birth_date}</td>
-            <td>${item.gender}</td>
-            <td>${item.phone}</td>
-            <td>${item.address}</td>
+            <th scope="row">${item.id_room}</th>
+            <td>${item.room_name}</td>
+            <td>${item.department}</td>
+            <td>${item.equipment}</td>
             <td>
-              <a href="/patients?action=edit&idEdit=${item.id_patient}"><i class="fa-solid fa-pen-to-square"></i></a>
-              <a href="/patients?action=delete&idDelete=${item.id_patient}"><i class="fa-solid fa-trash"></i></a>
+              <a href="/rooms?action=edit&idEdit=${item.id_room}"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="/rooms?action=delete&idDelete=${item.id_room}"><i class="fa-solid fa-trash"></i></a>
             </td>
           </tr>
         </c:forEach>
@@ -114,19 +124,19 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="deleteLabel">Xóa Bệnh Nhân</h5>
-              <a href="${pageContext.request.contextPath}/patients?action=home" class="btn-close"></a>
+              <h5 class="modal-title" id="deleteLabel">Xóa Phòng Khám</h5>
+              <a href="${pageContext.request.contextPath}/rooms?action=home" class="btn-close"></a>
             </div>
             <div class="modal-body">
-              <p>Bạn Có Chắc Muốn Xóa Bệnh Nhân
-                <strong><c:out value="${patientDelete != null ? patientDelete.name : '---'}"/></strong>?
+              <p>Bạn Có Chắc Muốn Xóa Phòng Khám
+                <strong><c:out value="${roomDelete != null ? roomDelete.room_name : '---'}"/></strong>?
               </p>
             </div>
             <div class="modal-footer">
-              <a href="${pageContext.request.contextPath}/patients?action=home" class="btn btn-secondary">Quay lại</a>
+              <a href="${pageContext.request.contextPath}/rooms?action=home" class="btn btn-secondary">Quay lại</a>
 
-              <form id="deleteForm" action="${pageContext.request.contextPath}/patients?action=delete" method="post" style="display:inline;">
-                <input type="hidden" name="id_patient" value="<c:out value='${patientDelete.id_patient}'/>" />
+              <form id="deleteForm" action="${pageContext.request.contextPath}/rooms?action=delete" method="post" style="display:inline;">
+                <input type="hidden" name="id_room" value="<c:out value='${roomDelete.id_room}'/>" />
                 <!-- phải là submit để gửi form -->
                 <button type="submit" class="btn btn-danger">Xóa</button>
               </form>
@@ -155,4 +165,6 @@
   });
 </script>
 </body>
+</html>
+
 </html>

@@ -1,12 +1,16 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Delete Patient</title>
+  <title>Home Doctor</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous">
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -25,7 +29,7 @@
             </a>
           </li>
           <li>
-            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+            <a href="/appointments?action=home" class="nav-link px-0 align-middle">
               <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Lịch Khám</span>
             </a>
           </li>
@@ -34,7 +38,7 @@
               <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Bác Sĩ</span></a>
           </li>
           <li>
-            <a href="/patients?action=home" class="nav-link px-0 align-middle ">
+            <a href="#/patiennts?action=home" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
               <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bệnh Nhân</span></a>
           </li>
           <li>
@@ -48,7 +52,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link px-0 align-middle">
+            <a href="/rooms?action=home" class="nav-link px-0 align-middle">
               <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Phòng Khám</span>
             </a>
           </li>
@@ -78,81 +82,39 @@
       </div>
     </div>
     <div class="col py-3">
-      <h3>Quản Lý Bệnh Nhân</h3>
-      <button type="button" class="btn btn-primary"><a href="/patients?action=add">Thêm Bệnh Nhân</a></button>
+      <h3>Quản Lý Phòng Khám</h3>
+      <button type="button" class="btn btn-primary"><a href="/rooms?action=add">Thêm Phòng Khám</a></button>
       <table class="table">
         <thead>
         <tr>
-          <th>Mã Bệnh Nhân</th>
-          <th>Tên</th>
-          <th>Ngày Sinh</th>
-          <th>Giới Tính</th>
-          <th>Số Điện Thoại</th>
-          <th>Địa Chỉ</th>
+          <th>Mã Phòng Khám</th>
+          <th>Tên Phòng</th>
+          <th>Khoa</th>
+          <th>Thiết Bị</th>
           <th>Thao Tác</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="item" items="${patients}">
+        <c:forEach var="item" items="${rooms}">
           <tr>
-            <th scope="row">${item.id_patient}</th>
-            <td>${item.name}</td>
-            <td>${item.birth_date}</td>
-            <td>${item.gender}</td>
-            <td>${item.phone}</td>
-            <td>${item.address}</td>
+            <th scope="row">${item.id_room}</th>
+            <td>${item.room_name}</td>
+            <td>${item.department}</td>
+            <td>${item.equipment}</td>
             <td>
-              <a href="/patients?action=edit&idEdit=${item.id_patient}"><i class="fa-solid fa-pen-to-square"></i></a>
-              <a href="/patients?action=delete&idDelete=${item.id_patient}"><i class="fa-solid fa-trash"></i></a>
+              <a href="/rooms?action=edit&idEdit=${item.id_room}"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="/rooms?action=delete&idDelete=${item.id_room}"><i class="fa-solid fa-trash"></i></a>
             </td>
           </tr>
         </c:forEach>
         </tbody>
       </table>
-      <!-- Modal markup với id -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deleteLabel">Xóa Bệnh Nhân</h5>
-              <a href="${pageContext.request.contextPath}/patients?action=home" class="btn-close"></a>
-            </div>
-            <div class="modal-body">
-              <p>Bạn Có Chắc Muốn Xóa Bệnh Nhân
-                <strong><c:out value="${patientDelete != null ? patientDelete.name : '---'}"/></strong>?
-              </p>
-            </div>
-            <div class="modal-footer">
-              <a href="${pageContext.request.contextPath}/patients?action=home" class="btn btn-secondary">Quay lại</a>
-
-              <form id="deleteForm" action="${pageContext.request.contextPath}/patients?action=delete" method="post" style="display:inline;">
-                <input type="hidden" name="id_patient" value="<c:out value='${patientDelete.id_patient}'/>" />
-                <!-- phải là submit để gửi form -->
-                <button type="submit" class="btn btn-danger">Xóa</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div> <!-- end col -->
+    </div>
   </div>
 </div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-  // Khi trang load, tự động show modal nếu tồn tại phần tử modal
-  document.addEventListener('DOMContentLoaded', function () {
-    var modalEl = document.getElementById('deleteModal');
-    if (modalEl) {
-      var modal = new bootstrap.Modal(modalEl, {
-        backdrop: 'static' // tùy chọn: click outside không đóng
-      });
-      modal.show();
-    }
-  });
-</script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+</script>
 </html>
