@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/appointments?action=home" class="nav-link px-0 align-middle">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Lịch Khám</span>
                         </a>
                     </li>
@@ -52,12 +52,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/rooms?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Phòng Khám</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/medicalRecords?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Hồ Sơ Khám Bệnh</span>
                         </a>
                     </li>
@@ -82,35 +82,48 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Quản Lý Bác Sĩ</h3>
-            <button type="button" class="btn btn-primary"><a href="/doctors?action=add">Thêm Bác Sĩ</a></button>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Mã Bác sĩ</th>
-                    <th>Tên</th>
-                    <th>Chuyên Khoa</th>
-                    <th>Trình Độ Chuyên Môn</th>
-                    <th>Số Điện Thoại</th>
-                    <th>Thao Tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="item" items="${doctors}">
-                    <tr>
-                        <th scope="row">${item.id_doctor}</th>
-                        <td>${item.name}</td>
-                        <td>${item.specialty}</td>
-                        <td>${item.qualification}</td>
-                        <td>${item.phone}</td>
-                        <td>
-                            <a href="/doctors?action=edit&idEdit=${item.id_doctor}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/doctors?action=delete&idDelete=${item.id_doctor}"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <h3>Thêm Hồ Sơ Khám Bệnh</h3>
+            <form action="/medicalRecords?action=add" method="post">
+                <div class="mb-3">
+                    <label for="exam_date" class="form-label">Ngày Khám Bệnh</label>
+                    <input type="date" id="exam_date" name="exam_date" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="symptoms" class="form-label">Triệu Chứng</label>
+                    <input type="text" id="symptoms" name="symptoms" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="diagnosis" class="form-label">Chuẩn Đoán</label>
+                    <input type="text" id="diagnosis" name="diagnosis" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="note" class="form-label">Ghi Chú</label>
+                    <input type="text" id="note" name="note" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_appointment" class="form-label">Ngày Hẹn</label>
+                    <select name="id_appointment" id="id_appointment" class="form-select" required>
+                        <c:forEach var="item" items="${appointments}">
+                            <option value="${item.id_appointment}">${item.appointment_date}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_room" class="form-label">Tên Phòng</label>
+                    <select name="id_room" id="id_room" class="form-select" required>
+                        <c:forEach var="item" items="${rooms}">
+                            <option value="${item.id_room}">${item.room_name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 </div>

@@ -48,6 +48,15 @@ public class Appointment {
         this.doctor = doctor;
     }
 
+    public Appointment(int id_appointment, Date appointment_date) {
+        this.id_appointment = id_appointment;
+        this.appointment_date = appointment_date;
+    }
+
+    public Appointment(int id_appointment) {
+        this.id_appointment = id_appointment;
+    }
+
     public int getId_appointment() {
         return id_appointment;
     }

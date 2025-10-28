@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/appointments?action=home" class="nav-link px-0 align-middle">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Lịch Khám</span>
                         </a>
                     </li>
@@ -82,30 +82,34 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Quản Lý Bác Sĩ</h3>
-            <button type="button" class="btn btn-primary"><a href="/doctors?action=add">Thêm Bác Sĩ</a></button>
+            <h3>Hồ Sơ Khám Bệnh</h3>
+            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Mã Bác sĩ</th>
-                    <th>Tên</th>
-                    <th>Chuyên Khoa</th>
-                    <th>Trình Độ Chuyên Môn</th>
-                    <th>Số Điện Thoại</th>
+                    <th>Mã Hồ Sơ</th>
+                    <th>Ngày Kiểm Tra</th>
+                    <th>Triệu Chứng</th>
+                    <th>Chuẩn Đoán</th>
+                    <th>Ghi Chú</th>
+                    <th>Ngày Hẹn</th>
+                    <th>Tên Phòng</th>
                     <th>Thao Tác</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="item" items="${doctors}">
+                <c:forEach var="item" items="${medicalRecords}">
                     <tr>
-                        <th scope="row">${item.id_doctor}</th>
-                        <td>${item.name}</td>
-                        <td>${item.specialty}</td>
-                        <td>${item.qualification}</td>
-                        <td>${item.phone}</td>
+                        <th scope="row">${item.id_medical_record}</th>
+                        <th>${item.exam_date}</th>
+                        <td>${item.symptoms}</td>
+                        <td>${item.diagnosis}</td>
+                        <td>${item.note}</td>
+                        <td>${item.appointment.appointment_date}</td>
+                        <td>${item.room.room_name}</td>
                         <td>
-                            <a href="/doctors?action=edit&idEdit=${item.id_doctor}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/doctors?action=delete&idDelete=${item.id_doctor}"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/medicalRecords?action=edit&idEdit=${item.id_medical_record}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="/medicalRecords?action=delete&idDelete=${item.id_medical_record}"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 </c:forEach>

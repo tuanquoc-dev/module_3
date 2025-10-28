@@ -19,6 +19,15 @@ public class Room {
         this.equipment = equipment;
     }
 
+    public Room(int id_room, String room_name) {
+        this.id_room = id_room;
+        this.room_name = room_name;
+    }
+
+    public Room(int id_room) {
+        this.id_room = id_room;
+    }
+
     public int getId_room() {
         return id_room;
     }
