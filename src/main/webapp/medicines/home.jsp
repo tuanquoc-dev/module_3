@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/medicines?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Thuốc</span>
                         </a>
                     </li>
@@ -82,34 +82,43 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Hồ Sơ Khám Bệnh</h3>
-            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
-            <table class="table">
+            <h3>Quản Lý Thuốc</h3>
+
+            <div class="d-flex mb-3">
+                <a class="btn btn-primary me-2" href="/medicines?action=add">Thêm Thuốc</a>
+                <form class="d-flex" action="/medicines" method="get">
+                    <input type="hidden" name="action" value="search"/>
+                    <input name="keyword" class="form-control me-2" type="search" placeholder="Tìm theo tên thuốc" value="${keyword}" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Tìm</button>
+                </form>
+            </div>
+
+            <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Mã Hồ Sơ</th>
-                    <th>Ngày Kiểm Tra</th>
-                    <th>Triệu Chứng</th>
-                    <th>Chuẩn Đoán</th>
-                    <th>Ghi Chú</th>
-                    <th>Ngày Hẹn</th>
-                    <th>Tên Phòng</th>
+                    <th>Mã Thuốc</th>
+                    <th>Tên Thuốc</th>
+                    <th>Liều</th>
+                    <th>Tần Suất</th>
+                    <th>Số Ngày</th>
+                    <th>Mã Đơn</th>
+                    <th>Ngày Đơn</th>
                     <th>Thao Tác</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="item" items="${medicalRecords}">
+                <c:forEach var="item" items="${medicines}">
                     <tr>
-                        <th scope="row">${item.id_medical_record}</th>
-                        <th>${item.exam_date}</th>
-                        <td>${item.symptoms}</td>
-                        <td>${item.diagnosis}</td>
-                        <td>${item.note}</td>
-                        <td>${item.appointment.appointment_date}</td>
-                        <td>${item.room.room_name}</td>
+                        <td>${item.id_medicine}</td>
+                        <td>${item.medicine_name}</td>
+                        <td>${item.default_dosage}</td>
+                        <td>${item.frequency}</td>
+                        <td>${item.days}</td>
+                        <td>${item.id_prescription}</td>
+                        <td><c:out value="${item.prescription != null ? item.prescription.prescription_date : ''}"/></td>
                         <td>
-                            <a href="/medicalRecords?action=edit&idEdit=${item.id_medical_record}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/medicalRecords?action=delete&idDelete=${item.id_medical_record}"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/medicines?action=edit&idEdit=${item.id_medicine}" class="me-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="/medicines?action=delete&idDelete=${item.id_medicine}"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 </c:forEach>

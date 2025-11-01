@@ -45,6 +45,15 @@ public class MedicalRecord {
         this.room = room;
     }
 
+    public MedicalRecord(int id_medical_record, Date exam_date) {
+        this.id_medical_record = id_medical_record;
+        this.exam_date = exam_date;
+    }
+
+    public MedicalRecord(int id_medical_record) {
+        this.id_medical_record = id_medical_record;
+    }
+
     public int getId_medical_record() {
         return id_medical_record;
     }

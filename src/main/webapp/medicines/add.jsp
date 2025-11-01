@@ -42,22 +42,22 @@
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bệnh Nhân</span></a>
                     </li>
                     <li>
-                        <a href="/prescriptions?action=home" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/medicines?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Thuốc</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/rooms?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Phòng Khám</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/medicalRecords?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Hồ Sơ Khám Bệnh</span>
                         </a>
                     </li>
@@ -82,40 +82,52 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Hồ Sơ Khám Bệnh</h3>
-            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Mã Hồ Sơ</th>
-                    <th>Ngày Kiểm Tra</th>
-                    <th>Triệu Chứng</th>
-                    <th>Chuẩn Đoán</th>
-                    <th>Ghi Chú</th>
-                    <th>Ngày Hẹn</th>
-                    <th>Tên Phòng</th>
-                    <th>Thao Tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="item" items="${medicalRecords}">
-                    <tr>
-                        <th scope="row">${item.id_medical_record}</th>
-                        <th>${item.exam_date}</th>
-                        <td>${item.symptoms}</td>
-                        <td>${item.diagnosis}</td>
-                        <td>${item.note}</td>
-                        <td>${item.appointment.appointment_date}</td>
-                        <td>${item.room.room_name}</td>
-                        <td>
-                            <a href="/medicalRecords?action=edit&idEdit=${item.id_medical_record}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/medicalRecords?action=delete&idDelete=${item.id_medical_record}"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <h3>Thêm Thuốc Mới</h3>
+
+            <form action="${pageContext.request.contextPath}/medicines?action=add" method="post">
+                <div class="mb-3">
+                    <label for="medicine_name" class="form-label">Tên Thuốc</label>
+                    <input type="text" id="medicine_name" name="medicine_name" class="form-control" required
+                           placeholder="Nhập tên thuốc"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="default_dosage" class="form-label">Liều (ví dụ: 500mg)</label>
+                    <input type="text" id="default_dosage" name="default_dosage" class="form-control" required
+                           placeholder="Ví dụ: 500mg hoặc 1 viên"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="frequency" class="form-label">Tần Suất (ví dụ: 2 lần/ngày)</label>
+                    <input type="text" id="frequency" name="frequency" class="form-control" required
+                           placeholder="Ví dụ: 2 lần/ngày"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="days" class="form-label">Số Ngày</label>
+                    <input type="number" id="days" name="days" class="form-control" min="1" required value="1"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_prescription" class="form-label">Chọn Đơn Thuốc (Prescription)</label>
+                    <select name="id_prescription" id="id_prescription" class="form-select" required>
+                        <option value="">-- Chọn đơn thuốc --</option>
+                        <c:forEach var="p" items="${prescriptions}">
+                            <option value="${p.id_prescription}">
+                                <c:out value="${p.id_prescription}"/> - <c:out value="${p.prescription_date}"/>
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2">Lưu</button>
+                    <a href="${pageContext.request.contextPath}/medicines?action=home" class="btn btn-secondary">Hủy / Quay về</a>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
     </div>
 </div>
 </body>

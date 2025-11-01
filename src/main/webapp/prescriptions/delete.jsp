@@ -1,16 +1,26 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: vuquo
+  Date: 10/25/2025
+  Time: 11:19 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home Doctor</title>
+    <title>Title</title>
+</head>
+<body>
+
+</body><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>Delete Patient</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="style.css">
+          crossorigin="anonymous">
 </head>
 <body>
 <div class="container-fluid">
@@ -42,22 +52,22 @@
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bệnh Nhân</span></a>
                     </li>
                     <li>
-                        <a href="/prescriptions?action=home" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/medicines?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Thuốc</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/rooms?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Phòng Khám</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/medicalRecords?action=home" class="nav-link px-0 align-middle">
+                        <a href="#" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Hồ Sơ Khám Bệnh</span>
                         </a>
                     </li>
@@ -82,45 +92,78 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Hồ Sơ Khám Bệnh</h3>
-            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
+            <h3>Quản Lý Đơn Thuốc</h3>
+            <button type="button" class="btn btn-primary"><a href="/prescriptions?action=add">Thêm Đơn Thuốc</a></button>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Mã Hồ Sơ</th>
-                    <th>Ngày Kiểm Tra</th>
-                    <th>Triệu Chứng</th>
-                    <th>Chuẩn Đoán</th>
+                    <th>Mã Đơn Thuốc</th>
+                    <th>Ngày Kê Đơn</th>
                     <th>Ghi Chú</th>
-                    <th>Ngày Hẹn</th>
-                    <th>Tên Phòng</th>
+                    <th>Ngày Kiểm Tra</th>
                     <th>Thao Tác</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="item" items="${medicalRecords}">
+                <c:forEach var="item" items="${prescriptions}">
                     <tr>
-                        <th scope="row">${item.id_medical_record}</th>
-                        <th>${item.exam_date}</th>
-                        <td>${item.symptoms}</td>
-                        <td>${item.diagnosis}</td>
+                        <th scope="row">${item.id_prescription}</th>
+                        <th>${item.prescription_date}</th>
                         <td>${item.note}</td>
-                        <td>${item.appointment.appointment_date}</td>
-                        <td>${item.room.room_name}</td>
+                        <td>${item.medicalRecord.exam_date}</td>
                         <td>
-                            <a href="/medicalRecords?action=edit&idEdit=${item.id_medical_record}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/medicalRecords?action=delete&idDelete=${item.id_medical_record}"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/prescriptions?action=edit&idEdit=${item.id_prescription}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="/prescriptions?action=delete&idDelete=${item.id_prescription}"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-        </div>
+            <!-- Modal markup với id -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteLabel">Xóa Đơn Thuốc</h5>
+                            <a href="${pageContext.request.contextPath}/prescriptions?action=home" class="btn-close"></a>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn Có Chắc Muốn Xóa Đơn Thuốc
+                                <strong><c:out value="${prescriptionDelete != null ? prescriptionDelete.id_prescription : '---'}"/></strong>?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="${pageContext.request.contextPath}/prescriptions?action=home" class="btn btn-secondary">Quay lại</a>
+
+                            <form id="deleteForm" action="${pageContext.request.contextPath}/prescriptions?action=delete" method="post" style="display:inline;">
+                                <input type="hidden" name="id_prescription" value="<c:out value='${prescriptionDelete.id_prescription}'/>" />
+                                <!-- phải là submit để gửi form -->
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
     </div>
 </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous">
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Khi trang load, tự động show modal nếu tồn tại phần tử modal
+    document.addEventListener('DOMContentLoaded', function () {
+        var modalEl = document.getElementById('deleteModal');
+        if (modalEl) {
+            var modal = new bootstrap.Modal(modalEl, {
+                backdrop: 'static' // tùy chọn: click outside không đóng
+            });
+            modal.show();
+        }
+    });
 </script>
+</body>
+</html>
+
 </html>

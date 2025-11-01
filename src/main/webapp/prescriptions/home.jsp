@@ -42,8 +42,8 @@
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bệnh Nhân</span></a>
                     </li>
                     <li>
-                        <a href="/prescriptions?action=home" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
+                        <a href="/prescriptions?action=home" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Quản Lý Đơn Thuốc</span>
                         </a>
                     </li>
                     <li>
@@ -82,34 +82,28 @@
             </div>
         </div>
         <div class="col py-3">
-            <h3>Hồ Sơ Khám Bệnh</h3>
-            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
+            <h3>Quản Lý Đơn Thuốc</h3>
+            <button type="button" class="btn btn-primary"><a href="/prescriptions?action=add">Thêm Đơn Thuốc</a></button>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Mã Hồ Sơ</th>
-                    <th>Ngày Kiểm Tra</th>
-                    <th>Triệu Chứng</th>
-                    <th>Chuẩn Đoán</th>
+                    <th>Mã Đơn Thuốc</th>
+                    <th>Ngày Kê Đơn</th>
                     <th>Ghi Chú</th>
-                    <th>Ngày Hẹn</th>
-                    <th>Tên Phòng</th>
+                    <th>Ngày Kiểm Tra</th>
                     <th>Thao Tác</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="item" items="${medicalRecords}">
+                <c:forEach var="item" items="${prescriptions}">
                     <tr>
-                        <th scope="row">${item.id_medical_record}</th>
-                        <th>${item.exam_date}</th>
-                        <td>${item.symptoms}</td>
-                        <td>${item.diagnosis}</td>
+                        <th scope="row">${item.id_prescription}</th>
+                        <th>${item.prescription_date}</th>
                         <td>${item.note}</td>
-                        <td>${item.appointment.appointment_date}</td>
-                        <td>${item.room.room_name}</td>
+                        <td>${item.medicalRecord.exam_date}</td>
                         <td>
-                            <a href="/medicalRecords?action=edit&idEdit=${item.id_medical_record}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="/medicalRecords?action=delete&idDelete=${item.id_medical_record}"><i class="fa-solid fa-trash"></i></a>
+                            <a href="/prescriptions?action=edit&idEdit=${item.id_prescription}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="/prescriptions?action=delete&idDelete=${item.id_prescription}"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 </c:forEach>
