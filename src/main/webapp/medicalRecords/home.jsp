@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home Doctor</title>
+    <title>Home MedicalRecord</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="/appointments?action=home" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Lịch Khám</span>
                         </a>
                     </li>
@@ -68,7 +68,7 @@
                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
                              class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">loser</span>
+                        <span class="d-none d-sm-inline mx-1">${admin.username}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -76,14 +76,14 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        <li><a class="dropdown-item" href="/auth?action=login">Sign out</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col py-3">
             <h3>Hồ Sơ Khám Bệnh</h3>
-            <button type="button" class="btn btn-primary"><a href="/medicalRecords?action=add">Thêm Hồ Sơ</a></button>
+            <a type="button" class="btn btn-primary" href="/medicalRecords?action=add">Thêm Hồ Sơ</a>
             <table class="table">
                 <thead>
                 <tr>
