@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,32 +16,36 @@
         <div class="alert alert-danger">${error}</div>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/auth?action=register" method="post">
+      <form method="post" action="${pageContext.request.contextPath}/auth?action=register">
         <div class="mb-3">
-          <label class="form-label">Tên đăng nhập</label>
-          <input type="text" class="form-control" name="username" required/>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Mật khẩu</label>
-          <input type="password" class="form-control" name="password" required/>
+          <label>Tên đăng nhập</label>
+          <input type="text" name="username" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label class="form-label">Nhập lại mật khẩu</label>
-          <input type="password" class="form-control" name="password2" required/>
+          <label>Mật khẩu</label>
+          <input type="password" name="password" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label class="form-label">Họ & Tên</label>
-          <input type="text" class="form-control" name="full_name"/>
+          <label>Nhập lại mật khẩu</label>
+          <input type="password" name="password2" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" name="email"/>
+          <label>Họ tên</label>
+          <input type="text" name="full_name" class="form-control">
         </div>
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-success" type="submit">Đăng ký</button>
-          <a href="${pageContext.request.contextPath}/auth?action=login" class="btn btn-secondary">Quay lại đăng nhập</a>
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control">
         </div>
+        <div class="mb-3">
+          <label>Vai trò</label><br>
+          <label><input type="radio" name="role" value="user" checked> Người dùng</label>
+          <label class="ms-3"><input type="radio" name="role" value="admin"> Quản trị</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
+        <a href="/auth?action=login" class="btn btn-primary">Quay Lại</a>
       </form>
+
     </div>
   </div>
 </div>
